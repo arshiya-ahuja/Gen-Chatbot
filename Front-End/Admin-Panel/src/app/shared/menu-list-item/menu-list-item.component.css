@@ -1,0 +1,30 @@
+  
+  .mat-list-item .mat-icon{
+    float: left;
+    margin-right: 10px;
+  
+  }
+  
+  
+span > .mat-icon{
+    float: right !important;
+    margin-left: 10px;
+    
+  }
+  .active{
+      background-color: #1eddfd;
+  color: #2f353a;
+       
+  }
+  .routeIcon{
+      font-size: 0.9rem;
+  }
+  .right-align
+  {
+    flex: 1 1 auto;
+  }
+  .mat-list-item{
+    font-size: 0.8rem;
+  }
+
+  

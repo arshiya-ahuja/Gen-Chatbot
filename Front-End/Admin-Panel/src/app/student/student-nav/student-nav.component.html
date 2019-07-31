@@ -1,0 +1,65 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav color="primary" #drawer class="sidenav" fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <mat-toolbar>
+      <div class="brand_logo_container">
+        <img style="width: 30%; height: 34%;  text-align: center;"
+          src="https://cdn.freebiesupply.com/logos/large/2x/pinterest-circle-logo-png-transparent.png"
+          class="brand_logo" alt="Logo">
+      </div>
+    </mat-toolbar>
+    <mat-nav-list class="menuhost">
+
+      <!-- <a mat-list-item  routerLink="/student/dashboard">
+        <mat-icon class="menu-before-icon"> dashboard</mat-icon>
+        Dashboard 
+        <mat-icon class="example-icon">chevron_right</mat-icon>
+      </a>
+      <a mat-list-item routerLink="/student/profile">Profile</a>
+      <a mat-list-item href="#">Link 3</a> -->
+      <mat-divider></mat-divider>
+      <span *ngFor="let item of navItems">
+        <app-menu-list-item  *appHasPermission="item.isOnlyFor"  [item]="item">
+        </app-menu-list-item>
+      </span>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span class="toolbar-logo">Perennial Systems</span>
+      <mat-icon class="example-icon">favorite</mat-icon>
+
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon class="example-icon">account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="{{studentRoute.profile}}">
+          <mat-icon>how_to_reg</mat-icon>
+          <span>View Profile</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>cached</mat-icon>
+          <span>Reset Password</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>help_outline</mat-icon>
+          <span>Help</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item>
+          <mat-icon>power_settings_new</mat-icon>
+          <span (click)="logOut()">Sign Out</span>
+        </button>
+      </mat-menu>
+
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

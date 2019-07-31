@@ -1,0 +1,267 @@
+<form [formGroup]="createAgent" *ngIf="displayMode == 'create-admin'">
+  <div class="form-body">
+    <div class="card-body">
+      <div class="row p-t-20">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label"> Email</label>
+            <input class="form-control" type="email" id="email" required formControlName="email" />
+
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+
+              <div *ngIf="email.errors.required">
+                Email is required.
+              </div>
+              <div *ngIf="email.errors">Email must be a valid email address</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">Password</label>
+            <input required class="form-control" id="password" formControlName="password" type="password"/>
+
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+              <div *ngIf="password.errors.required">
+                Password is required.
+              </div>
+              <div *ngIf="password.errors.minlength">
+                password must be at least 8 characters long.
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-success">
+            <label class="control-label">Type</label>
+            <select class="form-control custom-select" id="roletype" required formControlName="roletype">
+              <option value="agent">Agent</option>
+              <option value="admin">Admin</option>
+            </select>
+            <div *ngIf="roletype.invalid && (roletype.dirty || roletype.touched)" class="alert alert-danger">
+              <div *ngIf="roletype.errors.required">
+                Role Type  is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">Project Id</label>
+            <input required class="form-control" formControlName="projectId" id="projectId" type="text" />
+            
+            <div *ngIf="projectId.invalid && (projectId.dirty || projectId.touched)" class="alert alert-danger">
+              <div *ngIf="projectId.errors.required">
+                Project Id is required.
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">Display Name</label>
+            <input required class="form-control" formControlName="displayName" id="displayName" type="text" />
+            <div *ngIf="displayName.invalid && (displayName.dirty || displayName.touched)" class="alert alert-danger">
+              <div *ngIf="displayName.errors.required">
+                Display Name  is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">Private Key</label>
+            <input required class="form-control" formControlName="private_key" id="private_key" type="text" />
+            <div *ngIf="private_key.invalid && (private_key.dirty || private_key.touched)" class="alert alert-danger">
+              <div *ngIf="private_key.errors.required">
+                Private Key is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">Client Email</label>
+            <input required class="form-control" formControlName="client_email" id="client_email" type="text" />
+            <div *ngIf="client_email.invalid && (client_email.dirty || client_email.touched)" class="alert alert-danger">
+              <div *ngIf="client_email.errors.required">
+                Client Email is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+      <br />
+      <br />
+      <div class="action-form">
+        <div class="form-group m-b-0 text-center">
+          <button type="submit" name="button" [disabled]="createAgent.invalid" (click)="createAdmin()">Submit</button>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<form [formGroup]="createIn" *ngIf="displayMode == 'create-intent'">
+  <div class="form-body">
+    <div class="card-body">
+      <div class="row p-t-20">
+        <!-- <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">ProjectId</label>
+            <input class="form-control" type="text" required formControlName="ProjectId" />
+          </div>
+        </div> -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">displayName</label>
+            <input required  id="IntentControls" class="form-control" formControlName="displayName" type="text" />
+
+            <div *ngIf="IntentControls.invalid && (IntentControls.dirty || IntentControls.touched)" class="alert alert-danger">
+              <div *ngIf="IntentControls.errors.required">
+                displayName  is required.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="action-form">
+        <div class="form-group m-b-0 text-center">
+          <button type="submit" name="button" [disabled]="createIn.invalid" (click)="createSubject()">Submit</button>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="col-md-6" *ngIf="displayMode == 'list-intent'">
+  <table style="border: 1px solid black;">
+    <th>DisplayName</th>
+    <th>Delete Intent</th>
+    <tr *ngFor="let  intent of intentList.data">
+      <td>{{intent.displayName}}</td>
+      <!-- <td><button (click)="deleteIntent()" >Delete</button></td> -->
+    </tr>
+  </table>
+
+</div>
+<!-- <app-knowledgebase [mode]="'create'" *ngIf="displayMode=='knowledgebase-create'"></app-knowledgebase> -->
+<!-- <app-knowledgebase [mode]="'delete'" *ngIf="displayMode=='knowledgebase-delete'"></app-knowledgebase> -->
+<form [formGroup]="createKnowledgeBase" *ngIf="displayMode=='knowledgebase-create'">
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label class="control-label">Display Name</label>
+      <input required class="form-control" formControlName="displayName" type="text" />
+    </div>
+
+    <div class="action-form">
+      <div class="form-group m-b-0 text-center">
+        <button type="submit" name="button" [disabled]="createKnowledgeBase.invalid"
+          (click)=" createKb()">Submit</button>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<form [formGroup]="entitiy" *ngIf="displayMode == 'entities-create'">
+  <div class="form-body">
+    <div class="card-body">
+      <div class="row p-t-20">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">Entity Value</label>
+            <input class="form-control" type="text" formControlName="entityValue" />
+          </div>
+        </div>
+       
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">Entity Type Name</label>
+            <input class="form-control" formControlName="entityTypeName" type="text" />
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="action-form">
+        <div class="form-group m-b-0 text-center">
+          <button name="button" [disabled]="entitiy.invalid" (click)="createEntities()">Submit</button>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form [formGroup]="entityType" *ngIf="displayMode == 'entitiesType-create'">
+  <div class="form-body">
+    <div class="card-body">
+      <div class="row p-t-20">
+        <!-- <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">ProjectId</label>
+            <input class="form-control" type="text" required formControlName="ProjectId" />
+          </div>
+        </div> -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">displayName</label>
+            <input required class="form-control" formControlName="displayName" type="text" />
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label">Kind</label>
+            <input required class="form-control" formControlName="kind" type="text" />
+          </div>
+        </div>
+
+
+      </div>
+      <br />
+      <br />
+      <div class="action-form">
+        <div class="form-group m-b-0 text-center">
+          <button type="submit" name="button" [disabled]="entityType.invalid" (click)="createEnType()">Submit</button>
+          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+<div class="col-md-6" *ngIf="displayMode == 'knowledgebase-list'">
+  <table style="border: 1px solid black;">
+    <th>DisplayName</th>
+    <th>Delete</th>
+    <!-- <th>Delete Intent</th> -->
+
+  </table>
+
+</div>
